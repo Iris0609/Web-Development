@@ -1,0 +1,45 @@
+
+/*ID selector>Class,Attribute, and pseudo-class selectors>type selector*/
+
+li{
+	border: 2px solid red;
+}
+
+#special{
+	color: yellow;
+	background: green;
+}
+
+.highlight{
+	color: blue;
+	text-decoration: line-through;
+}
+
+/*id with #, class with .*/
+/* * select means every element on the page; descendant selector
+*/
+
+a[href="www.google.com"]{
+	/*Attribute selector*/
+	color: red;
+}
+
+input[type="checkbox"]{
+	color:pink;
+}
+
+li a {
+	/* descendants selector */
+}
+
+h4+ul{
+	/*Adjacent selector*/
+
+/*}*/
+}
+
+
+li:nth-of-type(2){
+	/*nth of type*/
+	background: purple;
+}

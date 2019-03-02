@@ -1,0 +1,32 @@
+h1{
+	color: #FF6980;
+}
+
+li{
+	color: rgb(100,0,100);
+}
+
+h4{
+	color: rgba(11,99,150,.2);
+	/*.2 is transparent*/
+}
+
+
+
+body{
+	background: #95a5a6;
+}
+body{
+	background: url(https://image.shutterstock.com/image-photo/wool-grain-close-450w-1160264083.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+body{
+/*	background: pink;
+	border-color: purple;
+	border-width: 5px;
+	border-style: dashed;
+*/
+	border: 5px solid orange;
+}

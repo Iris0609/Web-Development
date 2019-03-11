@@ -30,3 +30,13 @@ var movies=[{
 	evaluate:"3.5 starts",
 	seen:"no"
 }]
+
+var dogSpace={};
+dogSpace.speak=function(){
+	return "Woof";
+}
+
+var catSpace={};
+catSpace.speak=function(){
+	return "Meow";
+}

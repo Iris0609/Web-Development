@@ -69,11 +69,11 @@ p.innerHTML//return text and html tag
 p.getAttribute(arributename);
 p.setAttribute(arributename,value);
 
-<img alt="Google" height="92" id="hplogo" src="/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" srcset="/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png 1x, /images/branding/googlelogo/2x/googlelogo_color_272x92dp.png 2x" style="padding-top:109px" width="272" onload="window.lol&amp;&amp;lol()" data-atf="4">
+
+element.addEventListener(type of event,functionToCall);
 
 
-
-
+even: click,mouseover,mouseout
 
 
 

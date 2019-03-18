@@ -59,3 +59,19 @@ $("input").on()
 
 //click() only effect on existed element
 //on("click") can effect on potential future element
+
+//effect
+
+$(item).on("click",function(){
+	$('div').fadeOut(1000,function(){
+		//fadeOut will take 1000, which is 4s
+		//second argument is function after fadeout
+		$(this).remove();
+	});
+});
+
+.fadeIn()
+.fadeToggle()
+.slideDown()
+.sliceUp()
+.sliceToggle()

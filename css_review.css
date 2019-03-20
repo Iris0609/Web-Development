@@ -1,0 +1,17 @@
+/*Margin Collapse*/
+
+/*Top and bottom margins of elemnets are sometims collapsed into a single margin,
+this is equal to the largest of the two margins. This does not happen on left and right margins!
+
+
+*/
+
+/*Example*/
+
+h1{
+	margin: 0 0 50px 0;
+}
+
+h2{
+	margin: 20px 0 0 0;
+}

@@ -74,6 +74,18 @@ col2 datatype DEFAULT 'novalue'
 ALTER TABLE tablename ALTER col1 SET DEFAULT 'novalue'; 
 
 //AUTO INCREMENT or SEQUENCE
-The AUTO_INCREMENT attribute generates and save a unique number every time a new data row inserted into a table.
+The AUTO_INCREMENT attribute generates and save a unique number every time a new data row inserted into a table. Auto_increment doesn't have zero index.
 SQL Example:
 CREATE TABLE tablename(col1 datatype NOT NULL PRIMARY KEY AUTO_INCREMENT, col2 datatype);
+
+//SQL_SAFE_UPDATES
+when sql_safe_updates=1, you can't delete records without where or limit, even though you have where or limit, you cannot delete without key column;
+when equals 0, you can.
+
+//limit 
+limit (offset 0), 10
+
+//sql type
+text, int 
+1. difference between varchar and char: varchar is variable char, which size is depending on the content; char's size is fixed.
+

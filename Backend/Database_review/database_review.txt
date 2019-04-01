@@ -1,0 +1,233 @@
+// Some concepts
+1. DBMS: Database Management System, program to interact with the databases.
+Create and manage database. Store, modify and extract data.
+
+2. RDBMS: Relational Database Management System
+Relational database is the database that follows relational model by E.F.Codd
+
+3. Database schema: database logic and structure
+
+4. Database Engine: Storage Engine
+
+5. Two types of SQL statements: Data Definition Language(DDL), Data Manipulation Language(DML)
+
+6. DDL: change database structure
+DML: only change data
+
+// SQL
+5. SQL
+SHOW DATABASES;
+
+CREATE DATABASE school;
+
+USE school;
+
+DROP DATABASE school
+
+SHOW TABLES;
+
+CREATE TABLE students(
+id INT NOT NULL PRIMARY KEY,
+name VARCHAR(40) NOT NULL,
+class VARCHAR(20),
+age INT);
+
+DROP TABLE students;
+
+DESC students;
+
+INSERT INTO tablename(column 1, column2) VALUES (VAL1,VAL2);
+
+
+// SQL Constraints
+not null, primary key, unique, foreign key, check, default
+1. foreign key:
+	i. a foreign key in a table always points to a primary key in another table
+	ii. the foreign key constraint terminates the actions that can destroy the links between relational table;
+	iii. the foreign key constraint also restrict adding invalid data to the foreign key column because the foreign key column values must be similar to the linked primary key values
+SQL Example:
+ALTER TABLE teachers ADD CONSTRAINT fk_subjectid FOREIGN KEY(subjectid) REFERENCES subjects(subjectid);
+
+* if want to drop the foreign key column, first drop the foreign key constraints, then drop the column
+ALER TABLE teachers DROP FOREIGN KEY fk_subjectid;
+ALER TABLE teachers DROP COLUMN subjectid;
+
+2. check
+	i. The check constraint is used to control the value range that can be stored in a table column.
+	ii. A table column with CHECK constraint defined will save only specific values in the column.
+	iii. The CHECK constraint can be applied to a single or multiple table columns.
+SQL Example:
+CREATE TABLE tablename(
+col1 datatype,
+col2 datatype,
+CHECK(col1>0)
+);
+ALTER TABLE tablename ADD CONSTRAINT chk_col1 CHECK(col1>0);
+
+3. DEFAULT 
+	i. The DEFAULT Constraint is used to set a default value for a data column
+SQL Example:
+CREATE TABLE tablename(
+col1 datatype,
+col2 datatype DEFAULT 'novalue'
+);
+ALTER TABLE tablename ALTER col1 SET DEFAULT 'novalue'; 
+
+//AUTO INCREMENT or SEQUENCE
+The AUTO_INCREMENT attribute generates and save a unique number every time a new data row inserted into a table. Auto_increment doesn't have zero index.
+SQL Example:
+CREATE TABLE tablename(col1 datatype NOT NULL PRIMARY KEY AUTO_INCREMENT, col2 datatype);
+
+//SQL_SAFE_UPDATES
+when sql_safe_updates=1, you can't delete records without where or limit, even though you have where or limit, you cannot delete without key column;
+when equals 0, you can.
+
+//limit 
+limit (offset 0), 10
+
+//sql type
+1. difference between varchar and char: varchar is variable char, which size is depending on the content; char's size is fixed.
+2. enum types: a fix set of values 
+
+MYSQL Example:
+create table products (id int primary key auto_increment, name varchar(20),
+category varchar(20),sell_by_date date,sold_or_not bool, moment_of_sale timestamp, quantity int, weight numeric(6,3));
+
+create table Personnel(id int primary key auto_increment, given_name varchar(20),
+family_name varchar(20),gender enum('Male','Female'), telephone_number char(11),
+marital_status enum('single','married','divorce'), age tinyint,salary float,
+position varchar(20),date_started date);
+
+create table address(First_line varchar(50),Second_line varchar(50),city varchar(20),
+region varchar(20),zip_code char(7),Two_letter_country_code char(2));
+
+//aggregate function
+cannot use aggregate function in where clause, but we can group by sth. having clause. Having will apply on your group by clause.
+
+//inner join
+table 1 (inner )join table 2 on condiction
+//outer join
+table 1 left/right join table 2 on condiction
+
+//foreign key
+on delete restrict / on delete cascade
+
+//union and union all
+union will remove duplicate records 
+
+//in
+where id in (2,3,4)
+where id in (select id from person) subquery
+
+//alter
+alter table person add column temp varchar(30) not null after name; //add
+alter table person drop column temp; //drop
+
+alter table book add constraint fk_library foreign key (library) references library(id);
+alter table book drop foreign key fk_library;
+
+alter table person add index idx_name(name);
+alter table person drop index idx_name;
+
+//user&previleges
+create user 'john'@'localhost' identified by 'letmein'; (username:john, password: letmein)
+grant all privileges on *.* to 'john'@'localhost';//given john all privileges
+flush privileges
+drop user john@localhost
+
+create user john@localhost identified by 'letmein'
+grant select on databasename.*(means all tables) to john@localhost //john can select table
+
+//views
+create view bookview as select id,name from book
+drop view bookview
+
+//lock
+write lock cannot share, read lock can; row lock;
+
+//variables
+set @variables=123;
+select @variables;
+select * from sales where value>variables;
+select @total :=sum(value),@min_value:=min(value) from sales;
+
+//ACID
+Atomicity
+Consistency
+Isolation
+Durability
+
+set autocommit=0;//set autocommit to false
+insert into survey (name) values ('YThisudg');
+commit;// other users cannot see change until commit, all data of the last commit will be applied.
+rollback; //all data of the last commit will be undone.
+savepoint test1;
+rollback to test1;
+
+	1. transaction
+		start transaction;
+		select @@session.tx_isolation:
+
+	2. set session transaction isolation level repeatable read
+		serializable //other cannot edit until one commit
+		Repeatable read//can read after self commit change
+		read committed//can read after commit change
+		read uncommitted//can read without commit change
+
+	3. select .. for update// add row lock
+	   select .. lock in share mode// add read lock
+
+//SQL function
+1. string function: concat, lcase, ucase,left,trim(eliminate space),substr
+2. date,interval,queries:select curdate()-interval 36 day; date_sub();dayname()//monday...;form_date(datediff(date1,date2)); str_to_date();date_format()
+3. select if(condiction,(true)A,(false)B);ifnull(A(not null),B(null)); cast(sth. as char)//change datatype;
+
+//SQL procedure
+delimiter $$
+create procedure HelloWorld()
+begin
+select abdladakjh$$
+end
+delimiter ;
+call HelloWorld();
+drop procedure HelloWord;
+
+
+//SQL Trigger
+1.
+delimeter $$
+creater trigger before_sales_update(triggername) before update on(verb) sales(tablename) for each row(target)
+begin
+	insert into sales_update(product_id,changed_at,before_value,after_value)
+		value(old.id(old is sales table before update),now(),old.value,new.value);
+
+end$$
+========================================================================
+2. 
+set delimeter $$
+create trigger before_products_insert before insert on products for each row
+begin
+	if new.value>100.0 then
+		set new.value:=100.0
+	end if;
+end$$
+
+create trigger before_products_update before update on products for each row
+begin
+	if new.value>100.0 then
+		set new.value:=100.0
+	end if;
+end$$
+set delimeter ;
+=========================================================================
+3.
+create trigger before_sales_insert before insert on sales for each row
+begin
+	declare count int default 0;
+	select count(*) from sales_totals where day=today into count;
+	if count =0 then
+		insert into sales_totals(total,day) values (new.sold,today);
+	else
+		update sales_totals set total = total+new.sold where day = today);
+end
+
